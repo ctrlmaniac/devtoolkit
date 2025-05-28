@@ -18,6 +18,31 @@ source "$DEVTOOLKIT/utils/welcome.sh"
 # shellcheck source=devtoolkit/utils/goodbye.sh
 source "$DEVTOOLKIT/utils/goodbye.sh"
 
+# Simple logging helpers for devtoolkit
+log_info() {
+  printf "[devtoolkit] ℹ️  %s\n" "$*"
+}
+
+log_success() {
+  printf "[devtoolkit] ✅ %s\n" "$*"
+}
+
+log_warn() {
+  printf "[devtoolkit] ⚠️  %s\n" "$*" >&2
+}
+
+log_error() {
+  printf "[devtoolkit] ❌ %s\n" "$*" >&2
+}
+
+prompt_user() {
+  local prompt="$1"
+  local default="$2"
+  printf "👉 %s [%s]: " "$prompt" "$default"
+  read -r input
+  printf "%s" "${input:-$default}"
+}
+
 # Show help if no command passed
 if [ $# -eq 0 ] || [[ "$1" == "-h" || "$1" == "--help" ]]; then
   print_welcome "devtoolkit 🛠️"
