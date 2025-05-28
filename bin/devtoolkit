@@ -1,0 +1,47 @@
+#!/usr/bin/env bash
+# File: devtoolkit (main entrypoint under $ROOT/bin)
+# Description: Entry point to the devtoolkit CLI. Handles routing to commands.
+
+set -euo pipefail
+
+# Get root and toolkit paths
+ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+DEVTOOLKIT="$ROOT_DIR/devtoolkit"
+
+# Load helpers
+# shellcheck source=devtoolkit/utils/logs.sh
+source "$DEVTOOLKIT/utils/logs.sh"
+# shellcheck source=devtoolkit/utils/confirm.sh
+source "$DEVTOOLKIT/utils/confirm.sh"
+# shellcheck source=devtoolkit/utils/welcome.sh
+source "$DEVTOOLKIT/utils/welcome.sh"
+# shellcheck source=devtoolkit/utils/goodbye.sh
+source "$DEVTOOLKIT/utils/goodbye.sh"
+
+# Show help if no command passed
+if [ $# -eq 0 ] || [[ "$1" == "-h" || "$1" == "--help" ]]; then
+  print_welcome "devtoolkit 🛠️"
+  printf "Usage: devtoolkit <command> [subcommand] [options]\n"
+  printf "\nAvailable Commands:\n"
+  printf "  sys         System setup and tools\n"
+  printf "  git         Git setup and configuration\n"
+  printf "  github      GitHub-related setup and keys\n"
+  printf "  node        Node.js environment setup\n"
+  printf "\nUse 'devtoolkit <command> --help' for more information.\n"
+  exit 0
+fi
+
+# Extract main command and delegate
+COMMAND="$1"
+shift || true
+
+if [ -f "$DEVTOOLKIT/commands/$COMMAND.sh" ]; then
+  bash "$DEVTOOLKIT/commands/$COMMAND.sh" "$@"
+elif [ -n "${1:-}" ] && [ -f "$DEVTOOLKIT/commands/$COMMAND/$1.sh" ]; then
+  SUBCOMMAND="$1"
+  shift || true
+  bash "$DEVTOOLKIT/commands/$COMMAND/$SUBCOMMAND.sh" "$@"
+else
+  log_error "Unknown command: $COMMAND"
+  exit 1
+fi
