@@ -9,8 +9,6 @@ extensions:
 
 settings: # Core VS Code editor settings
   editor.formatOnSave: true
-  files.eol: "\n" # Enforce Unix-style line endings
-  files.insertFinalNewline: true
   workbench.editor.enablePreview: false # Disable preview mode for editors
 
 extensions.settings: # Settings specific to certain extensions
