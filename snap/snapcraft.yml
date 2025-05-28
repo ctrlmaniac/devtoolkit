@@ -1,0 +1,20 @@
+name: devtoolkits
+base: core22
+version: '0.1.0'
+summary: CLI tool for bootstrapping Ubuntu + WSL dev environments
+description: |
+  Devtoolkit helps you set up a full developer workstation on Ubuntu or WSL.
+
+grade: stable
+confinement: classic
+
+apps:
+  devtoolkit:
+    command: bin/devtoolkits
+
+parts:
+  devtoolkits:
+    plugin: dump
+    source: .
+    stage:
+      - bin/*

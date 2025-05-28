@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+# Simple CLI entrypoint
+COMMAND=$1
+shift
+
+case "$COMMAND" in
+  bootstrap)
+    exec "$DEVTOOLKITS_SHELL_ROOT/bootstrap.zsh" "$@"
+    ;;
+  git)
+    if [ "$1" = "config" ]; then
+      exec "$DEVTOOLKITS_SHELL_ROOT/git-config.zsh" "${@:2}"
+    fi
+    ;;
+  *)
+    echo "Unknown command: $COMMAND"
+    echo "Usage: devtoolkits [bootstrap|git config|...]"
+    exit 1
+    ;;
+esac
