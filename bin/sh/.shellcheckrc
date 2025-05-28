@@ -1,0 +1,24 @@
+# .shellcheckrc for the webnodex project
+# Place this file in the root of your project (e.g., ~/webnodex/.shellcheckrc)
+
+# Set the default shell for scripts in this project to bash.
+# This is useful if your scripts don't always have a shebang or if you want
+# to enforce a specific dialect for checking.
+shell=bash
+
+# Instruct ShellCheck to include the directory of the script being checked (SCRIPTDIR)
+# in its search path for sourced files.
+# This is generally the default behavior for direct relative paths (e.g., 'source ../lib.sh').
+# It complements in-script '# shellcheck source=' directives, which are crucial
+# when you source files using variables (e.g., 'source "$LIB_PATH"').
+source-path=SCRIPTDIR
+
+# For SC1091 ("file not found") errors with your current setup:
+# - The in-script directives like '# shellcheck source=../utils/check-install.sh'
+#   are correctly guiding ShellCheck for variable-based sourcing.
+# - The most common reason for persistent SC1091 errors, even with correct directives,
+#   is that the target file (e.g., 'utils/check-install.sh')
+#   *does not actually exist* at that path when ShellCheck is run.
+
+# Example: To disable a check globally (use with caution; inline is often better for clarity):
+# disable=SC2034 # If you had many scripts with intentionally unused variables for external tools.

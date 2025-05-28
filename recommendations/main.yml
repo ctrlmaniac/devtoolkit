@@ -1,0 +1,7 @@
+# Main recommendations configuration
+# This file points to service-specific recommendation files.
+# A consuming script would be responsible for loading and merging these configurations.
+
+services:
+  node: ./node.yml
+  editor_vscode: ./editor-vscode.yml

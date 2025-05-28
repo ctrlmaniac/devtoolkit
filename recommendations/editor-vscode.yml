@@ -1,0 +1,18 @@
+# VS Code Editor Recommendations
+extensions:
+  - EditorConfig.EditorConfig
+  - Google.geminicodeassist
+  - dbaeumer.vscode-eslint
+  - esbenp.prettier-vscode
+  - ms-vscode.makefile-tools
+  - timonwong.shellcheck
+
+settings: # Core VS Code editor settings
+  editor.formatOnSave: true
+  files.eol: "\n" # Enforce Unix-style line endings
+  files.insertFinalNewline: true
+  workbench.editor.enablePreview: false # Disable preview mode for editors
+
+extensions.settings: # Settings specific to certain extensions
+  eslint.experimental.useFlatConfig: true # Example: For ESLint extension
+  prettier.requireConfig: true # Example: For Prettier extension

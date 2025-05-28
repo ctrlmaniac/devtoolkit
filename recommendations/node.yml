@@ -1,0 +1,12 @@
+# Node.js Service Recommendations
+package-manager: pnpm
+
+globalToolsToInstall:
+  - nodemon
+  - serve
+  - http-server
+
+projectDevDependencies:
+  - eslint
+  - prettier
+  - lefthook
