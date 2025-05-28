@@ -10,4 +10,10 @@
 	// Note: The 'EditorConfig.EditorConfig' extension works by reading an
 	// '.editorconfig' file in your project root. Ensure one is present
 	// for consistent editor settings across different editors and IDEs.
+
+  // Shell scripts
+  "shellcheck.enable": true,
+  "shellcheck.useWorkspaceRootAsCwd": true,
+  "shellcheck.customArgs": ["-x"],
+  "shellcheck.run": "onType",
 }

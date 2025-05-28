@@ -1,0 +1,12 @@
+devtoolkit/
+├── bin/
+│   └── bootstrap.sh
+├── scripts/
+│   ├── core/
+│   │   ├── check-root.sh
+│   │   └── install-packages.sh
+│   └── shell/
+│       ├── helpers.bash
+│       └── helpers.zsh
+├── config/
+│   └── recommendations/sys-ubuntu.yml

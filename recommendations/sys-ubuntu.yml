@@ -1,0 +1,14 @@
+ubuntu:
+  snap:
+    - yq
+  packages:
+    - build-essential
+    - curl
+    - wget
+    - git
+    - zsh
+    - ca-certificates
+    - lsb-release
+    - gnupg
+    - software-properties-common
+    - jq
