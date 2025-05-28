@@ -1,6 +1,7 @@
 {
 	"recommendations": [
 		"EditorConfig.EditorConfig",
-		"Google.geminicodeassist"
+		"Google.geminicodeassist",
+		"timonwong.shellcheck"
 	]
 }
