@@ -24,8 +24,11 @@
 # Returns:
 #   Sets the variable named by $3 to the selected option string
 
-# shellcheck source=../../env.sh
-source "$(dirname "${BASH_SOURCE[0]}")/../../env.sh"
+# Determine the directory of the current script
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+# shellcheck source=../env.sh
+source "$SCRIPT_DIR../env.sh"
 
 read_choice() {
   local prompt="$1"

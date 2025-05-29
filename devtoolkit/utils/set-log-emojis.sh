@@ -1,25 +1,29 @@
 #!/usr/bin/env bash
-# -----------------------------------------------------------------------------
-# set-log-emojis.sh - Configure emoji themes for log output
+# devtoolkit/utils/set-log-emojis.sh
+#
+# ℹ️ Configure emoji themes for log output
 #
 # 🧰 USAGE
 #   export LOG_EMOJI_THEME=ascii   # fun | ascii | minimal | ci
 #   source devtoolkit/utils/set-log-emojis.sh
 #
-# 💡 THEMES:
+# 💡THEMES:
 #   fun      → Colorful emojis (default)
 #   ascii    → ASCII-safe symbols
 #   minimal  → No emojis or tags (quiet-friendly)
 #   ci       → GitHub Actions log annotations (::info:: etc.)
-# -----------------------------------------------------------------------------
+#
 
 set -euo pipefail
 
-# shellcheck source=../../env.sh
-source "$(dirname "${BASH_SOURCE[0]}")/../../env.sh"
+# Determine the directory of the current script
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-# shellcheck source=devtoolkit/utils/log.sh
-source "$(resolve_path_to utils/log.sh)"
+# shellcheck source=../env.sh
+source "$SCRIPT_DIR/../env.sh"
+
+# shellcheck source=log.sh
+source "$SCRIPT_DIR/log.sh"
 
 set_log_emojis() {
   local theme="${1:-fun}"
@@ -65,7 +69,7 @@ set_log_emojis() {
   fi
 }
 
-# 🔻 Auto-apply if declared
+# Auto-apply if declared
 if [[ -n "${LOG_EMOJI_THEME:-}" ]]; then
   set_log_emojis "$LOG_EMOJI_THEME"
 fi

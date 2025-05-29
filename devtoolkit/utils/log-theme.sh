@@ -1,20 +1,27 @@
 #!/usr/bin/env bash
-# -----------------------------------------------------------------------------
-# log-theme.sh - CLI to switch log emoji theme for devtoolkit
+# devtoolkit/utils/log-theme.sh
 #
-# Usage:
+# 🧰 CLI to switch log emoji theme for devtoolkit
+#
+# ℹ️ This script sets environment variables to override emoji themes for logging
+#    and sources log.sh to apply the changes immediately in the current shell.
+#
+# 🧰 USAGE
 #   source devtoolkit/utils/log-theme.sh
 #   devtoolkit_log_theme ascii
 #   devtoolkit_log_theme fun
 #   devtoolkit_log_theme ci
 #
-# This script exports appropriate environment variables to override emojis
-# and sources log.sh to update them immediately in the current shell.
-# -----------------------------------------------------------------------------
+# 💡THEMES:
+#   fun      → Colorful emojis (default)
+#   ascii    → ASCII-safe symbols
+#   minimal  → No emojis or tags (quiet-friendly)
+#   ci       → GitHub Actions log annotations (::info:: etc.)
+#
 
 set -euo pipefail
 
-# Usage help
+# print_usage - Display usage instructions
 print_usage() {
   cat <<EOF
 Usage: devtoolkit_log_theme [THEME]
@@ -29,7 +36,9 @@ Example:
 EOF
 }
 
-# Apply theme by setting emoji environment variables
+# devtoolkit_log_theme - Set emoji environment variables based on THEME
+# Usage: devtoolkit_log_theme [THEME]
+#   THEME - One of fun, ascii, ci (default: fun)
 devtoolkit_log_theme() {
   local theme="${1:-fun}"
 
@@ -62,19 +71,24 @@ devtoolkit_log_theme() {
     ;;
   esac
 
-  # Source log.sh to apply changes immediately
-  if [[ -f "$(dirname "${BASH_SOURCE[0]}")/log.sh" ]]; then
-    # shellcheck source=/dev/null
-    source "$(dirname "${BASH_SOURCE[0]}")/log.sh"
+  # Source log.sh to apply emoji changes immediately
+  local SCRIPT_DIR
+  SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+  # shellcheck source=log.sh
+  if [[ -f "$SCRIPT_DIR/log.sh" ]]; then
+    # shellcheck source=log.sh
+    source "$SCRIPT_DIR/log.sh"
   else
     printf "❌ Could not find log.sh to source. Please source manually.\n" >&2
     return 1
   fi
 
   printf "✅ Log emoji theme set to '%s'.\n" "$theme"
+
 }
 
-# If called with no args or --help, print usage
+# If script executed directly, parse arguments and run
 if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
   if [[ $# -eq 0 || $1 == "--help" || $1 == "-h" ]]; then
     print_usage

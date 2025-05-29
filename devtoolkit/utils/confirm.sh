@@ -1,12 +1,32 @@
 #!/usr/bin/env bash
-# shellcheck shell=bash
+# devtoolkit/utils/confirm.sh
+#
+# Ask user to confirm before taking an action
+#
+# 🧰 USAGE
+#   source devtoolkit/utils/confirm.sh
+#   read_confirm_action "Proceed with cleanup?" "cleanup_function"
+#   read_confirm_action "Reset configs?" "abort"  # Use "abort" to exit on decline
+#
+# 📝 DESCRIPTION
+#   Prompts the user for yes/no input and triggers the specified action
+#   if confirmed. On "abort", it exits with code 1.
+#
+# 🔗 DEPENDS ON
+#   - env.sh           → provides resolve_path_to
+#   - utils/log.sh     → provides log_success, log_warn, log_error
+#
+
 set -euo pipefail
 
-# shellcheck source=../../env.sh
-source "$(dirname "${BASH_SOURCE[0]}")/../../env.sh"
+# Get current script dir
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-# shellcheck source=devtoolkit/utils/log.sh
-source "$(resolve_path_to utils/log.sh)"
+# shellcheck source=../env.sh
+source "$SCRIPT_DIR/../env.sh"
+
+# shellcheck source=log.sh
+source "$SCRIPT_DIR/log.sh"
 
 read_confirm_action() {
   local message="$1"

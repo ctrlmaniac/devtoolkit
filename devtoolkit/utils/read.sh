@@ -1,13 +1,28 @@
 #!/usr/bin/env bash
-# shellcheck shell=bash
+# devtoolkit/utils/read.sh
+#
+# ℹ️ Utility functions for reading validated user input from terminal
+#
+# 🧰 FUNCTIONS
+#   read_char       - Read a single character matching a regex (default alphanumeric)
+#   read_word       - Read a single non-whitespace word
+#   read_line       - Read a line of input, optionally with validation
+#   read_multiline  - Read multiline input until EOF (Ctrl+D)
+#
+# 💡 INTERNAL
+#   _prompt_with_validation - Core prompt with regex validation logic
+#
 
 set -euo pipefail
 
-# shellcheck source=../../env.sh
-source "$(dirname "${BASH_SOURCE[0]}")/../../env.sh"
+# Determine the directory of the current script
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-# shellcheck source=devtoolkit/utils/log.sh
-source "$(resolve_path_to utils/log.sh)"
+# shellcheck source=../env.sh
+source "$SCRIPT_DIR/../env.sh"
+
+# shellcheck source=log.sh
+source "$SCRIPT_DIR/log.sh"
 
 _prompt_with_validation() {
   local prompt="$1"
