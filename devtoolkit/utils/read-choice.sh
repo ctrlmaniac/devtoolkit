@@ -1,30 +1,38 @@
 #!/usr/bin/env bash
-# read-choice.sh - Read a user's choice from a numbered list of options.
+# shellcheck shell=bash
+
+# This script defines the read_choice function which prompts the user
+# to select one option from a list, either by number or exact string match.
+# It supports a default value and loops until valid input is given.
 #
-# 📌 USAGE:
-#   # source the environment and required utils
-#   source "$(dirname "${BASH_SOURCE[0]}")/../../env.sh"
-#   source "$(resolve_path_to utils/log.sh)"
-#   source "$(resolve_path_to utils/read-choice.sh)"
+# Usage example:
 #
-#   local result=""
-#   read_choice "Choose a theme" "1" result "fun" "ascii" "minimal" "ci"
-#   echo "You chose: $result"
+#   # Declare a variable to store the result
+#   local selected_option
 #
-# 🔧 DEPENDS ON:
-#   - log_info(), log_error() from utils/log.sh
-#   - resolve_path_to() from env.sh
+#   # Call read_choice with prompt, default index, result variable, and options
+#   read_choice "Pick a color" 1 selected_option red green blue yellow
 #
-# ⚠️ WARNINGS SUPPRESSED:
-#   - SC2034: result_var is dynamically assigned via nameref
+#   # Now $selected_option contains the chosen option (e.g., "green")
 #
+# Parameters:
+#   $1 = Prompt string to display
+#   $2 = Default choice index (1-based)
+#   $3 = Name of variable to store result (passed by nameref)
+#   $4..$n = List of option strings
+#
+# Returns:
+#   Sets the variable named by $3 to the selected option string
+
+# shellcheck source=../../env.sh
+source "$(dirname "${BASH_SOURCE[0]}")/../../env.sh"
 
 read_choice() {
   local prompt="$1"
   local default="$2"
 
-  # shellcheck disable=SC2034
-  local -n result_var=$3 # result_var is assigned dynamically (intentional use of nameref)
+  # 'result_var' is a nameref to the variable where the chosen option is stored
+  local -n result_var=$3
 
   shift 3
   local options=("$@")

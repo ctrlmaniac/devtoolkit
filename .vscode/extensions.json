@@ -3,6 +3,7 @@
 		"EditorConfig.EditorConfig",
 		"Google.geminicodeassist",
 		"timonwong.shellcheck",
-		"foxundermoon.shell-format"
+		"foxundermoon.shell-format",
+		"ms-vscode.makefile-tools"
 	]
 }
