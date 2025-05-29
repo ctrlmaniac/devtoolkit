@@ -4,6 +4,7 @@
 		"Google.geminicodeassist",
 		"timonwong.shellcheck",
 		"foxundermoon.shell-format",
-		"ms-vscode.makefile-tools"
+		"ms-vscode.makefile-tools",
+		"ms-vscode.cpptools"
 	]
 }

@@ -1,0 +1,5 @@
+# Shellcheck configuration file
+# Enable checking of externally sourced scripts (e.g., from curl)
+external-sources=true
+# Enable checking of locally sourced scripts (e.g., source ./lib.sh)
+check-sourced=true

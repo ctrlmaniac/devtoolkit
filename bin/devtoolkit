@@ -1,26 +1,28 @@
 #!/usr/bin/env bash
-# -----------------------------------------------------------------------------
 # devtoolkit - Main CLI entrypoint
 #
 # USAGE:
 #   devtoolkit <command> [subcommand] [args...]
-# -----------------------------------------------------------------------------
 
 set -euo pipefail
 
 # Resolve paths
-ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-export DEVTOOLKIT="$ROOT_DIR/devtoolkit"
+# ROOT_DIR and DEVTOOLKIT will be set and exported by env.sh.
+# Determine the directory of this script to reliably source env.sh.
+_DEVTOOLKIT_BIN_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+# shellcheck source=../devtoolkit/env.sh
+source "$_DEVTOOLKIT_BIN_DIR/../devtoolkit/env.sh"
 
 # Load core utilities
-# shellcheck source=devtoolkit/utils/log.sh
-source "$DEVTOOLKIT/utils/log.sh"
+# Use resolve_path_to for sourcing utilities.
+# The shellcheck source paths are relative to this file (bin/devtoolkit).
+# shellcheck source=../devtoolkit/utils/log.sh
+source "$(resolve_path_to "utils/log.sh")"
 
-# source "$DEVTOOLKIT/utils/confirm.sh"
-# source "$DEVTOOLKIT/utils/welcome.sh"
-# source "$DEVTOOLKIT/utils/goodbye.sh"
-# source "$DEVTOOLKIT/utils/prompt.sh"
-# source "$DEVTOOLKIT/utils/usage.sh"
+# Example for other utils (uncomment and adjust as needed):
+# shellcheck source=../devtoolkit/utils/confirm.sh
+# source "$(resolve_path_to "utils/confirm.sh")"
+# # ... and so on for welcome.sh, goodbye.sh, prompt.sh, usage.sh
 
 # Show help if no arguments or help flag
 if [[ $# -eq 0 || "$1" == "-h" || "$1" == "--help" ]]; then

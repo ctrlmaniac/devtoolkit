@@ -46,6 +46,7 @@ curl
 wget
 build-essential
 zsh
+shellchek
 jq
 stow
 shfmt
