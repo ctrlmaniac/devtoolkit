@@ -48,6 +48,7 @@ build-essential
 zsh
 jq
 stow
+shfmt
 ?unzip
 code --snap --classic
 cargo @(https://sh.rustup.rs -sSf | sh) [^1]

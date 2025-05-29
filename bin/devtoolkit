@@ -13,13 +13,14 @@ ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 export DEVTOOLKIT="$ROOT_DIR/devtoolkit"
 
 # Load core utilities
-# shellcheck source=devtoolkit/utils/logs.sh
-source "$DEVTOOLKIT/utils/logs.sh"
-source "$DEVTOOLKIT/utils/confirm.sh"
-source "$DEVTOOLKIT/utils/welcome.sh"
-source "$DEVTOOLKIT/utils/goodbye.sh"
-source "$DEVTOOLKIT/utils/prompt.sh"
-source "$DEVTOOLKIT/utils/usage.sh"
+# shellcheck source=devtoolkit/utils/log.sh
+source "$DEVTOOLKIT/utils/log.sh"
+
+# source "$DEVTOOLKIT/utils/confirm.sh"
+# source "$DEVTOOLKIT/utils/welcome.sh"
+# source "$DEVTOOLKIT/utils/goodbye.sh"
+# source "$DEVTOOLKIT/utils/prompt.sh"
+# source "$DEVTOOLKIT/utils/usage.sh"
 
 # Show help if no arguments or help flag
 if [[ $# -eq 0 || "$1" == "-h" || "$1" == "--help" ]]; then

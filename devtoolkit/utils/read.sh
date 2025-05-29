@@ -3,7 +3,11 @@
 
 set -euo pipefail
 
-source "$DEVTOOLKIT/utils/log.sh"
+# shellcheck source=../../env.sh
+source "$(dirname "${BASH_SOURCE[0]}")/../../env.sh"
+
+# shellcheck source=devtoolkit/utils/log.sh
+source "$(resolve_path_to utils/log.sh)"
 
 _prompt_with_validation() {
   local prompt="$1"
@@ -46,42 +50,4 @@ read_multiline() {
   input=$(</dev/stdin)
   log_info "$input"
   REPLY="$input"
-}
-
-read_choice() {
-  local prompt="$1"
-  local default="$2"
-  local -n result_var=$3
-  shift 3
-  local options=("$@")
-
-  while true; do
-    local i=1
-    for opt in "${options[@]}"; do
-      log_info "  - $i) $opt"
-      i=$((i + 1))
-    done
-
-    printf "👉 %s [1-%d, default %s]: " "$prompt" "${#options[@]}" "$default"
-    local choice
-    IFS= read -r choice || true
-    choice="${choice:-$default}"
-
-    if [[ "$choice" =~ ^[0-9]+$ ]] && ((choice >= 1 && choice <= ${#options[@]})); then
-      result_var="${options[choice - 1]}"
-      return 0
-    fi
-
-    for opt in "${options[@]}"; do
-      if [[ "$opt" == "$choice" ]]; then
-        result_var="$opt"
-        return 0
-      fi
-    done
-
-    log_error "Invalid input. 🤔 Did you mean:"
-    for opt in "${options[@]}"; do
-      log_info "  - $opt"
-    done
-  done
 }

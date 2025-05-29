@@ -15,8 +15,11 @@
 
 set -euo pipefail
 
+# shellcheck source=../../env.sh
+source "$(dirname "${BASH_SOURCE[0]}")/../../env.sh"
+
 # shellcheck source=devtoolkit/utils/log.sh
-. "$(dirname "$0")/log.sh"
+source "$(resolve_path_to utils/log.sh)"
 
 set_log_emojis() {
   local theme="${1:-fun}"

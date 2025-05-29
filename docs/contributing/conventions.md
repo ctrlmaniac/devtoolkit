@@ -17,7 +17,7 @@ $ROOT/
     │   ├── welcome.sh               # 💬 Styled headers
     │   ├── goodbye.sh               # 👋 Exit banners
     │   ├── confirm.sh               # ✅ Prompt Y/N confirmation
-    │   ├── logs.sh                  # 📜 Logging helpers
+    │   ├── log.sh                  # 📜 Logging helpers
     │   ├── check-command.sh         # 🔍 Check for command
     │   ├── check-command-install.sh # 📦 Check & install missing command
     │   └── check-command-abort.sh   # 🛑 Abort if command missing

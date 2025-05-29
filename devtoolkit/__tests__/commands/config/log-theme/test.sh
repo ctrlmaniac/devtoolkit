@@ -3,8 +3,14 @@
 
 set -euo pipefail
 
-source "$ROOT/devtoolkit/utils/set-log-emojis.sh"
-source "$ROOT/devtoolkit/utils/log.sh"
+# shellcheck source=../../env.sh
+source "$(dirname "${BASH_SOURCE[0]}")/../../env.sh"
+
+# shellcheck source=devtoolkit/utils/log.sh
+source "$(resolve_path_to utils/log.sh)"
+
+# shellcheck source=devtoolkit/utils/set-log-emojis.sh
+source "$(resolve_path_to utils/set-log-emojis.sh)"
 
 test_log_theme_ascii() {
   set_log_emojis ascii
