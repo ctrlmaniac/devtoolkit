@@ -3,18 +3,18 @@
 #
 # Ask user to confirm before taking an action
 #
-# 🧰 USAGE
+# USAGE
 #   source devtoolkit/utils/confirm.sh
 #   read_confirm_action "Proceed with cleanup?" "cleanup_function"
 #   read_confirm_action "Reset configs?" "abort"  # Use "abort" to exit on decline
 #
-# 📝 DESCRIPTION
+# DESCRIPTION
 #   Prompts the user for yes/no input and triggers the specified action
 #   if confirmed. On "abort", it exits with code 1.
 #
-# 🔗 DEPENDS ON
-#   - env.sh           → provides resolve_path_to
-#   - utils/log.sh     → provides log_success, log_warn, log_error
+# DEPENDS ON
+#   - env.sh           provides resolve_path_to
+#   - utils/log.sh     provides log_success, log_warn, log_error
 #
 
 set -euo pipefail
@@ -22,11 +22,11 @@ set -euo pipefail
 # Get current script dir
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-# shellcheck source=../env.sh
-source "$SCRIPT_DIR/../env.sh"
+# shellcheck source=../../env.sh
+source "$SCRIPT_DIR/../../env.sh"
 
-# shellcheck source=log.sh
-source "$SCRIPT_DIR/log.sh"
+# shellcheck disable=SC1090
+source "$UTIL_IO"
 
 read_confirm_action() {
   local message="$1"

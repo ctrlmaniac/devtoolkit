@@ -1,17 +1,17 @@
 #!/usr/bin/env bash
 # devtoolkit/utils/log.sh
 #
-# 🧰 Logging utilities for devtoolkit
+# Logging utilities for devtoolkit
 #
-# ℹ️ Provides standardized logging functions with emoji support and quiet mode
+# Provides standardized logging functions with emoji support and quiet mode
 #
-# 🧰 USAGE
+# USAGE
 #   export DEVTOOLKIT_QUIET=1            # Suppress all output
 #   export LOG_EMOJI_THEME=ascii         # Select emoji theme: fun | ascii | ci
 #   export LOG_SUCCESS_EMOJI="🚀"         # Override individual emojis if desired
 #   source devtoolkit/utils/log.sh
 #
-# 💡 FUNCTIONS
+# FUNCTIONS
 #   log           - Generic log output to stdout
 #   log_info      - Informational messages (stdout, prefixed)
 #   log_success   - Success messages (stdout, prefixed)
@@ -19,7 +19,7 @@
 #   log_error     - Error messages (stderr, prefixed)
 #   log_debug     - Debug messages (stdout, prefixed)
 #
-# 🔧 ENVIRONMENT VARIABLES
+# ENVIRONMENT VARIABLES
 #   DEVTOOLKIT_QUIET    - If set to 1, suppresses all log output
 #   LOG_INFO_EMOJI      - Emoji or prefix for info logs (default "ℹ️ ")
 #   LOG_SUCCESS_EMOJI   - Emoji or prefix for success logs (default "✅")

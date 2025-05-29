@@ -1,28 +1,37 @@
 #!/usr/bin/env bash
 # devtoolkit/utils/log-theme.sh
 #
-# 🧰 CLI to switch log emoji theme for devtoolkit
+# CLI to switch log emoji theme for devtoolkit
 #
-# ℹ️ This script sets environment variables to override emoji themes for logging
-#    and sources log.sh to apply the changes immediately in the current shell.
+# This script sets environment variables to override emoji themes for logging
+# and sources log.sh to apply the changes immediately in the current shell.
 #
-# 🧰 USAGE
+# USAGE
 #   source devtoolkit/utils/log-theme.sh
 #   devtoolkit_log_theme ascii
 #   devtoolkit_log_theme fun
 #   devtoolkit_log_theme ci
 #
-# 💡THEMES:
-#   fun      → Colorful emojis (default)
-#   ascii    → ASCII-safe symbols
-#   minimal  → No emojis or tags (quiet-friendly)
-#   ci       → GitHub Actions log annotations (::info:: etc.)
+# THEMES:
+#   fun      Colorful emojis (default)
+#   ascii    ASCII-safe symbols
+#   minimal  No emojis or tags (quiet-friendly)
+#   ci       GitHub Actions log annotations (::info:: etc.)
 #
 
 set -euo pipefail
 
+# Determine directory of current script
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+# shellcheck source=../../env.sh
+source "$SCRIPT_DIR/../../env.sh"
+
+# shellcheck disable=SC1090
+source "$UTIL_IO"
+
 # print_usage - Display usage instructions
-print_usage() {
+_print_usage() {
   cat <<EOF
 Usage: devtoolkit_log_theme [THEME]
 
@@ -75,11 +84,12 @@ devtoolkit_log_theme() {
   local SCRIPT_DIR
   SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-  # shellcheck source=log.sh
-  if [[ -f "$SCRIPT_DIR/log.sh" ]]; then
-    # shellcheck source=log.sh
-    source "$SCRIPT_DIR/log.sh"
+  if [[ -f "$UTIL_IO" ]]; then
+    # shellcheck disable=SC1091
+    # shellcheck disable=SC1090
+    source "$UTIL_IO"
   else
+    # Keep printf because IO module is not loaded
     printf "❌ Could not find log.sh to source. Please source manually.\n" >&2
     return 1
   fi
@@ -91,7 +101,7 @@ devtoolkit_log_theme() {
 # If script executed directly, parse arguments and run
 if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
   if [[ $# -eq 0 || $1 == "--help" || $1 == "-h" ]]; then
-    print_usage
+    _print_usage
     exit 0
   fi
   devtoolkit_log_theme "$1"

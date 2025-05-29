@@ -1,16 +1,16 @@
 #!/usr/bin/env bash
 # devtoolkit/utils/clear-console.sh
 #
-# 🧰 Utility to clear the terminal console screen
+# Utility to clear the terminal console screen
 #
-# ℹ️ Clears the console using the `clear` command if available,
-#    otherwise falls back to the ANSI escape sequence `\033c`.
+# Clears the console using the `clear` command if available,
+# otherwise falls back to the ANSI escape sequence `\033c`.
 #
-# 🧰 USAGE
+# USAGE
 #   source devtoolkit/utils/clear-console.sh
 #   clear_console
 #
-# 💡 DESCRIPTION:
+# DESCRIPTION:
 #   Use this function in scripts or interactive sessions to provide
 #   a clean console screen reliably across different environments.
 #

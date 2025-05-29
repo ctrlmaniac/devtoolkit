@@ -7,47 +7,46 @@
 set -euo pipefail
 
 # Resolve paths
-# ROOT_DIR and DEVTOOLKIT will be set and exported by env.sh.
-# Determine the directory of this script to reliably source env.sh.
 _DEVTOOLKIT_BIN_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=../devtoolkit/env.sh
 source "$_DEVTOOLKIT_BIN_DIR/../devtoolkit/env.sh"
 
-# Load core utilities
-# Use resolve_path_to for sourcing utilities.
-# The shellcheck source paths are relative to this file (bin/devtoolkit).
-# shellcheck source=../devtoolkit/utils/log.sh
-source "$(resolve_path_to "utils/log.sh")"
+# Load I/O helpers
+# shellcheck disable=SC1090
+source "$UTIL_IO"
 
-# Example for other utils (uncomment and adjust as needed):
-# shellcheck source=../devtoolkit/utils/confirm.sh
-# source "$(resolve_path_to "utils/confirm.sh")"
-# # ... and so on for welcome.sh, goodbye.sh, prompt.sh, usage.sh
+COMMAND="${1:-}"
+SUBCOMMAND="${2:-}"
 
-# Show help if no arguments or help flag
-if [[ $# -eq 0 || "$1" == "-h" || "$1" == "--help" ]]; then
-  print_welcome "devtoolkit 🛠️"
-  print_usage "devtoolkit <command> [subcommand] [options]"
-  list_available_commands "$DEVTOOLKIT/commands"
+# Show help if no command or --help/-h is passed
+if [[ -z "$COMMAND" || "$COMMAND" == "--help" || "$COMMAND" == "-h" ]]; then
+  source "$DEVTOOLKIT/libs/help/_main.sh"
+  print_main_help
   exit 0
 fi
 
-COMMAND="$1"
-shift || true
+# Handle `devtoolkit help <command>`
+if [[ "$COMMAND" == "help" ]]; then
+  shift || true
+  source "$DEVTOOLKIT/libs/help/_dispatch.sh"
+  help_dispatch "$@"
+  exit $?
+fi
 
-# If command is a standalone script (e.g. commands/foo.sh)
+shift || true # shift COMMAND
+
+# If command is a standalone script: devtoolkit/foo.sh
 if [[ -f "$DEVTOOLKIT/commands/${COMMAND}.sh" ]]; then
   exec bash "$DEVTOOLKIT/commands/${COMMAND}.sh" "$@"
 
-# If command is a folder and next argument is a subcommand (e.g. config/log-theme.sh)
-elif [[ -n "${1:-}" && -f "$DEVTOOLKIT/commands/${COMMAND}/${1}.sh" ]]; then
-  SUBCOMMAND="$1"
-  shift || true
+# If command is a folder and subcommand exists: devtoolkit/foo/bar.sh
+elif [[ -n "${SUBCOMMAND:-}" && -f "$DEVTOOLKIT/commands/${COMMAND}/${SUBCOMMAND}.sh" ]]; then
+  shift || true # shift SUBCOMMAND
   exec bash "$DEVTOOLKIT/commands/${COMMAND}/${SUBCOMMAND}.sh" "$@"
 
-# Show error if no valid command found
+# Unknown command
 else
   log_error "Unknown command: $COMMAND"
-  log_info "Use \`devtoolkit --help\` to see available commands."
+  log_info "Use 'devtoolkit --help' to see available commands."
   exit 1
 fi

@@ -1,21 +1,23 @@
 #!/usr/bin/env bash
-# -----------------------------------------------------------------------------
-# log-theme.sh - Set emoji theme for devtoolkit logs
+# devtoolkit/commands/config/log-theme.sh
 #
-# 🧰 USAGE
+# USAGE:
 #   devtoolkit config log-theme <fun|ascii|minimal|ci>
-# -----------------------------------------------------------------------------
+#   devtoolkit help config log-theme
 
 set -euo pipefail
 
+# Get current script dir
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
 # shellcheck source=../../env.sh
-source "$(dirname "${BASH_SOURCE[0]}")/../../env.sh"
+source "$SCRIPT_DIR/../../env.sh"
 
-# shellcheck source=devtoolkit/utils/log.sh
-source "$(resolve_path_to utils/log.sh)"
+# shellcheck disable=SC1090
+source "$UTIL_IO"
 
-# shellcheck source=devtoolkit/utils/set-log-emojis.sh
-source "$(resolve_path_to utils/set-log-emojis.sh)"
+# shellcheck disable=SC1090
+source "$UTIL_CONFIG"
 
 log_theme_config() {
   local theme="${1:-}"
@@ -33,3 +35,17 @@ log_theme_config() {
     return 1
   fi
 }
+
+# Dispatch
+if [[ "${1:-}" == "--help" || "${1:-}" == "-h" ]]; then
+  log_info "🖌️  Set log emoji theme"
+  echo
+  log_info "USAGE"
+  log_plain "  devtoolkit config log-theme <fun|ascii|minimal|ci>"
+  echo
+  log_info "EXAMPLES"
+  log_plain "  devtoolkit config log-theme ascii"
+  exit 0
+else
+  log_theme_config "$@"
+fi

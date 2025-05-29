@@ -1,15 +1,15 @@
 #!/usr/bin/env bash
 # devtoolkit/utils/read.sh
 #
-# ℹ️ Utility functions for reading validated user input from terminal
+# Utility functions for reading validated user input from terminal
 #
-# 🧰 FUNCTIONS
+# FUNCTIONS
 #   read_char       - Read a single character matching a regex (default alphanumeric)
 #   read_word       - Read a single non-whitespace word
 #   read_line       - Read a line of input, optionally with validation
 #   read_multiline  - Read multiline input until EOF (Ctrl+D)
 #
-# 💡 INTERNAL
+# INTERNAL
 #   _prompt_with_validation - Core prompt with regex validation logic
 #
 
