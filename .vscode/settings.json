@@ -16,4 +16,7 @@
   "shellcheck.useWorkspaceRootAsCwd": true,
   "shellcheck.customArgs": ["-x"],
   "shellcheck.run": "onType",
+  "[shellscript]": {
+    "editor.defaultFormatter": "foxundermoon.shell-format"
+  }
 }

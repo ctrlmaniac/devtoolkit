@@ -1,0 +1,56 @@
+# DEPENDENCIES
+# List of all ubuntu/debian-based dependencies
+#
+# USAGE:
+#
+#   <[?]dependency[.exe]> [--snap [ARGUMENTS...]],[@<(https://{string:url} [--sSf | sh])>] [^{int}]
+#
+#
+# HOW TO PARSE:
+#
+# <> required
+# [] optional
+# , OR
+# {} the type of value and : defines its specification
+# () contains a string with spaces and/or literals
+# ? . @ ( ) - -- | literals. they are required in their context
+# [ARGUMENTS...] A list of space-separated arguments. For --snap, these are passed directly
+#                to the 'snap install' command after the package name.
+#
+# EXAMPLES:
+
+# # required utility
+# git
+#
+# # optional utility
+# ?unzip
+#
+# # A windows required utility
+# ollama.exe
+#
+# # A ubuntu snap required utility with the --classic flag
+# code --snap --classic
+#
+# # An optional snap utility installed from a specific channel and edge
+# ?my-snap-app --snap --channel=beta --edge
+#
+# # A required utility downloaded either with curl or wget
+# cargo @(https://sh.rustup.rs -sSf | sh) [^1]
+#
+# # Utilities dependencies
+# ---
+# [^1] build-essential
+
+git
+curl
+wget
+build-essential
+zsh
+jq
+stow
+?unzip
+code --snap --classic
+cargo @(https://sh.rustup.rs -sSf | sh) [^1]
+
+---
+[^1] build-essential

@@ -40,17 +40,14 @@ Our ambitious journey is detailed in the **`docs/roadmap.md`**. We are building 
 
 ---
 
-## ⚙️ Getting Started
+## ⚙️ System Dependencies
 
-*(This section will be updated as the toolkit matures. Currently, scripts are primarily located in the `_scripts` directory and are designed to be sourced or executed directly.)*
+Detailed information on system prerequisites, how `devtoolkit` manages dependencies via the
+`.config/dependencies.txt` file, and manual installation steps can be found in:
 
-**Prerequisites:**
+➡️ **System Dependencies Setup**
 
-*   Bash (and/or Zsh for Zsh-specific scripts)
-*   Common Unix utilities (curl, git, etc.)
-*   (Soon) Node.js and NVM for Node-based features
-
-**Installation (Conceptual):**
+**Project Installation (Conceptual):**
 
 ```bash
 # Clone the repository (example)
